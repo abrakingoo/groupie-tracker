@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <h1>Welcome!</h1>
+    <div class="container">
+        {{ range .Data }}
+        <div class="frame">
+            <div class="image-name">
+                <div class="image">
+                    <img src="{{.Image}}" alt="{{.Name}}">
+                </div>
+                <h2 class="group-name">{{.Name}}</h2>
+            </div>
+            <div class="group-info">
+                <p><strong>Creation Date: </strong> {{.CreationDate}}</p>
+                <p>First Album: {{.FirstAlbum}}</p>
+            </div>
+            <div class="members">
+                <p><strong> Members: </strong>{{range .Members}} {{.}}<br /> {{end}} </p>
+            </div>
+            <!-- Hidden form to simulate POST request -->
+            <form action="/process-url" method="POST" class="process-form" style="display: none;">
+                <input type="hidden" name="url">
+            </form>
+            <!-- Link to trigger the form submit -->
+            <p><strong>Relations: </strong><a href="{{.Relations}}" class="relations">{{ .Relations }}</a></p>
+        </div>
+        
+        {{ end }}
+        <div id="response">
+            <ul>
+                {{ if .Id }}
+                    <p>ID: {{ .Id }} </p>
+                    {{ range $city, $dates := .DatesLocations }}
+                    <li>City: {{ $city }} <br/> Dates: {{ $dates }}</li>
+                    {{ end }}
+                {{end}}
+            </ul>
+        </div>
+</body>
+
+<script>
+    document.querySelectorAll('.relations').forEach((link) => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent the default link behavior
+
+            // Get the URL from the href attribute of the clicked link
+            const url = e.target.href;
+
+            // Update the form action and input value
+            const form = e.target.closest('.frame').querySelector('.process-form');
+            form.action = '/process-url';
+            form.querySelector('[name=url]').value = url;
+
+            // Simulate form submission programmatically
+            form.submit();
+        });
+    });
+</script>
+
+</html>
