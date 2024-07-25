@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locations</title>
+</head>
+<body>
+    <h4>Locations:</h4>
+    <ol>
+    {{ range .Locations}} 
+        <li>{{.}} </li>
+    {{end}}
+    </ol>
+   <h4>Dates: </h4> <a href="{{.Dates}}">{{.Dates}}</a>
+</body>
+</html>
