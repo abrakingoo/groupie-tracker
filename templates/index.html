@@ -21,8 +21,11 @@
       <h1>Groupie Tracker</h1>
     </header>
     <div class="container">
+      <div class="loading">
+        <h5>Loading...</h5>
+      </div>
       {{ range .Bands }}
-      <article class="card">
+      <article class="card hidden" id="content">
         <div class="image-name">
           <img src="{{.Image}}" alt="{{.Name}}" title="{{.Name}}" />
           <h3>{{.Name}}</h3>
@@ -83,4 +86,14 @@
       </div>
     </div>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const loadingIndicator = document.querySelector(".loading");
+      loadingIndicator.classList.add("hidden");
+      const contentContainers = document.querySelectorAll("#content");
+      contentContainers.forEach((container) => {
+        container.classList.remove("hidden");
+      });
+    });
+  </script>
 </html>

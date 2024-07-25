@@ -186,3 +186,7 @@ header {
   border-radius: 5px;
   color:#12387f;
 }
+
+.hidden{
+    display: none;
+}
