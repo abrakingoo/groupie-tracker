@@ -1,60 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/styles.css" />
     <title>Home</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>GroupieTracker</h1>
+      <h1>GroupieTracker</h1>
     </header>
     <div class="container">
-        {{ range . }}
-        <article class="card">
-            <div class="image-name">
-                <img src="{{.Image}}" alt="{{.Name}}" srcset="">
-                <h3><strong>Band Name: </strong> {{.Name}}</h3>
-            </div>
-            <div class="members">
-                <h4>Members:</h4>
-                    <ol>
-                        {{ range .Members}}
-                            <li>{{.}}</li>
-                        {{end}}
-                    </ol>
-            </div>
-            <div class="album">
-                <h4>Creation Date: <span class="value">{{.CreationDate}}</span></h4>
-                <h4>First Album: <span class="value"> {{.FirstAlbum}}</span></h4>
-            </div>
-            <div class="links">
-                <div class="locations">
-                    <form action="/locations" method="POST">
-                        <strong>Locations:</strong>
-                        <input type="hidden" name="url" value="{{.Locations}}">
-                        <input type="hidden" name="bandName" value="{{.Name}}">
-                        <input type="submit" value="view available locations" class="btn">
-                    </form>
-                </div>
-                <div class="dates">
-                    <form action="/dates" method="POST">
-                        <strong>Concert Dates:</strong>
-                        <input type="hidden" name="url" value="https://groupietrackers.herokuapp.com/api/dates/{{.Id}}">
-                        <input type="submit" value="view Concert Dates" class="btn">
-                    </form>
-                </div>
-                <div class="relations">
-                    <form action="/relations" method="POST">
-                        <strong>Relations:</strong>
-                        <input type="hidden" value="{{.Relations}}">
-                        <input type="submit" value="view Relations" class="btn">
-                    </form>
-                </div>
-            </div>
-        </article>
+      {{ range .Bands }}
+      <article class="card">
+        <div class="image-name">
+          <img src="{{.Image}}" alt="{{.Name}}" srcset="" />
+          <h3>{{.Name}}</h3>
+        </div>
+        <div class="members">
+          <h4>Members:</h4>
+          <ol>
+            {{ range .Members}}
+            <li>{{.}}</li>
+            {{end}}
+          </ol>
+        </div>
+        <div class="album">
+          <h4>Creation Date: <span class="value">{{.CreationDate}}</span></h4>
+          <h4>First Album: <span class="value"> {{.FirstAlbum}}</span></h4>
+        </div>
+        <div class="links">
+          <div class="locations">
+            <form action="/locations" method="POST">
+              <strong>Locations:</strong>
+              <input type="hidden" name="url" value="{{.Locations}}" />
+              <input type="hidden" name="bandName" value="{{.Name}}" />
+              <input
+                type="submit"
+                value="view available locations"
+                class="btn"
+              />
+            </form>
+          </div>
+          <div class="dates">
+            <form action="/dates" method="POST">
+              <strong>Concert Dates:</strong>
+              <input
+                type="hidden"
+                name="url"
+                value="https://groupietrackers.herokuapp.com/api/dates/{{.Id}}"
+              />
+              <input type="submit" value="view Concert Dates" class="btn" />
+            </form>
+          </div>
+          <div class="relations">
+            <form action="/relations" method="POST">
+              <strong>Relations:</strong>
+              <input type="hidden" value="{{.Relations}}" />
+              <input type="submit" value="view Relations" class="btn" />
+            </form>
+          </div>
+        </div>
+      </article>
+      {{end}}
+      <div class="pageNav">
+        {{if gt .CurrentPage 1}}
+        <a href="/?page={{sub .CurrentPage 1}}">Previous</a>
+        {{end}} Page {{.CurrentPage}} of {{.TotalPages}} {{if lt .CurrentPage
+        .TotalPages}}
+        <a href="/?page={{add .CurrentPage 1}}">Next</a>
         {{end}}
+      </div>
     </div>
-</body>
+  </body>
 </html>

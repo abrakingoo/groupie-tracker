@@ -6,8 +6,10 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 )
 
+// Define your structs
 type Band struct {
 	Id           int      `json:"id"`
 	Image        string   `json:"image"`
@@ -27,15 +29,41 @@ type Location struct {
 }
 
 type DateStruct struct {
-	Id int `json:"id"`
+	Id    int      `json:"id"`
 	Dates []string `json:"dates"`
 }
 
+// Define page size
+const pageSize = 8
+
+// Pagination function
+func Paginate(items []Band, page int) ([]Band, int) {
+	start := (page - 1) * pageSize
+	if start >= len(items) {
+		return []Band{}, len(items)
+	}
+
+	end := start + pageSize
+	if end > len(items) {
+		end = len(items)
+	}
+
+	return items[start:end], len(items)
+}
+
+// Template functions
+var templateFuncs = template.FuncMap{
+	"sub": func(x, y int) int { return x - y },
+	"add": func(x, y int) int { return x + y },
+}
+
+// Load templates globally
+var templates = template.Must(template.New("").Funcs(templateFuncs).ParseGlob("templates/*.html"))
+
+// DatesHandler
 func DatesHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-
 	url := r.FormValue("url")
-	// bandName := r.FormValue("bandName")
 
 	res, err := http.Get(url)
 	if err != nil {
@@ -60,26 +88,17 @@ func DatesHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
-	tpl, err := template.ParseFiles("templates/dates.html")
-	if err != nil {
-		log.Println("Error parsing template file:", err)
-		http.Error(w, "Error parsing template file", http.StatusInternalServerError)
-		return
-	}
-
-	err = tpl.Execute(w, dates)
+	err = templates.ExecuteTemplate(w, "dates.html", dates)
 	if err != nil {
 		log.Println("Error executing template:", err)
 		http.Error(w, "Error executing template", http.StatusInternalServerError)
 	}
 }
 
+// LocationsHandler
 func LocationsHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-
 	url := r.FormValue("url")
-	// bandName := r.FormValue("bandName")
 
 	res, err := http.Get(url)
 	if err != nil {
@@ -104,21 +123,14 @@ func LocationsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
-	tpl, err := template.ParseFiles("templates/locations.html")
-	if err != nil {
-		log.Println("Error parsing template file:", err)
-		http.Error(w, "Error parsing template file", http.StatusInternalServerError)
-		return
-	}
-
-	err = tpl.Execute(w, locations)
+	err = templates.ExecuteTemplate(w, "locations.html", locations)
 	if err != nil {
 		log.Println("Error executing template:", err)
 		http.Error(w, "Error executing template", http.StatusInternalServerError)
 	}
 }
 
+// HomeHandler
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	url := "https://groupietrackers.herokuapp.com/api/artists"
 
@@ -145,20 +157,34 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tpl, err := template.ParseFiles("templates/index.html")
-	if err != nil {
-		log.Println("Error parsing template file:", err)
-		http.Error(w, "Error parsing template file", http.StatusInternalServerError)
-		return
+	page := 1
+	if p := r.URL.Query().Get("page"); p != "" {
+		if pNum, err := strconv.Atoi(p); err == nil {
+			page = pNum
+		}
 	}
 
-	err = tpl.Execute(w, bands[:8])
+	paginatedBands, totalItems := Paginate(bands, page)
+	totalPages := (totalItems + pageSize - 1) / pageSize
+
+	data := struct {
+		Bands      []Band
+		CurrentPage int
+		TotalPages int
+	}{
+		Bands:       paginatedBands,
+		CurrentPage: page,
+		TotalPages:  totalPages,
+	}
+
+	err = templates.ExecuteTemplate(w, "index.html", data)
 	if err != nil {
 		log.Println("Error executing template:", err)
 		http.Error(w, "Error executing template", http.StatusInternalServerError)
 	}
 }
 
+// main function
 func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
