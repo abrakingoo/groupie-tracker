@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: 1s ease-in-out
 }
 
 body {
@@ -14,10 +15,11 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-h3 {
+.image-name h3 {
   color: white;
   background-color: #8a9bba;
   border-radius: 5px;
+  text-align: center;
 }
 
 h4 {
@@ -27,10 +29,10 @@ h4 {
 
 header {
   width: 100%;
-  padding: 30px;
+  padding: 20px;
   border-bottom: 1px solid #ccc;
   background-color: #f0f0f0;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   font-style: italic;
   position: fixed;
   left: 0;
@@ -43,8 +45,8 @@ header {
     font-family: 'Playfair Display';
   background-color: rgb(255, 255, 255);
   width: 80%;
-  margin: 20px auto;
-  margin-top: 150px;
+  margin: auto;
+  margin-top: 90px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -54,6 +56,7 @@ header {
   border-radius: 5px;
   padding: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Added box-shadow */
+  /* margin-bottom: 80px; */
 }
 
 /* Default: 4 boxes per row */
@@ -83,7 +86,7 @@ header {
 }
 .card {
   width: 22%;
-  min-height: 550px;
+  /* min-height:360px; */
   border: 1px solid #ccc;
   padding: 5px;
   display: flex;
@@ -93,6 +96,7 @@ header {
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Added box-shadow */
   background-color: #fffffe;
+  position: relative;
 }
 
 .image-name {
@@ -125,10 +129,20 @@ header {
   align-items: center;
   justify-content: center;
   gap: 5px;
+  position: relative;
 }
 
 .members h4 {
   width: 100%;
+  text-align: center;
+  margin: 15px;
+  cursor: pointer;
+  color: #12387f;
+}
+
+.members h4:hover{
+  color: #8a9bba;
+  transition: none;
 }
 
 .members ol {
@@ -138,11 +152,14 @@ header {
   border-radius: 5px;
   width: 100%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  position:absolute;
+  top: 40px;
+  display: none;
 }
 
 .members ol li {
-  padding: 1px;
-  font-size: small;
+  font-size: medium;
+  font-weight: 200;
 }
 
 .links,
@@ -189,4 +206,20 @@ header {
 
 .hidden{
     display: none;
+}
+
+.footer {
+  width: 100%;
+  background-color: #ccc;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.footer h3 {
+  background-color: none;
 }
