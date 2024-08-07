@@ -31,16 +31,16 @@
           <h3>{{.Name}}</h3>
         </div>
         <div class="members">
-          <h4>Members:</h4>
-          <ol>
-            {{ range .Members}}
+          <h4 class="view-members" data-target="#members-{{.Id}}">Click To View Band Members</h4>
+          <ol id="members-{{.Id}}" class="members-list">
+            {{ range .Members }}
             <li>{{.}}</li>
-            {{end}}
+            {{ end }}
           </ol>
         </div>
         <div class="album">
           <h4>Creation Date: <span class="value">{{.CreationDate}}</span></h4>
-          <h4>First Album: <span class="value"> {{.FirstAlbum}}</span></h4>
+          <h4>First Album: <span class="value">{{.FirstAlbum}}</span></h4>
         </div>
         <div class="links">
           <div class="locations">
@@ -75,25 +75,46 @@
           </div>
         </div>
       </article>
-      {{end}}
+      {{ end }}
       <div class="pageNav">
-        {{if gt .CurrentPage 1}}
-        <a href="/?page={{sub .CurrentPage 1}}">Previous</a>
-        {{end}} Page {{.CurrentPage}} of {{.TotalPages}} {{if lt .CurrentPage
-        .TotalPages}}
-        <a href="/?page={{add .CurrentPage 1}}">Next</a>
-        {{end}}
+        {{ if gt .CurrentPage 1 }}
+        <a href="/?page={{ sub .CurrentPage 1 }}">Previous</a>
+        {{ end }} Page {{ .CurrentPage }} of {{ .TotalPages }} {{ if lt .CurrentPage .TotalPages }}
+        <a href="/?page={{ add .CurrentPage 1 }}">Next</a>
+        {{ end }}
       </div>
     </div>
+    <footer class="footer">
+      <h3>&COPY; 2024 groupietracker</h3>
+    </footer>
   </body>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const loadingIndicator = document.querySelector(".loading");
-      loadingIndicator.classList.add("hidden");
-      const contentContainers = document.querySelectorAll("#content");
-      contentContainers.forEach((container) => {
-        container.classList.remove("hidden");
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const loadingIndicator = document.querySelector(".loading");
+        loadingIndicator.classList.add("hidden");
+        const contentContainers = document.querySelectorAll("#content");
+        contentContainers.forEach((container) => {
+          container.classList.remove("hidden");
+        });
       });
-    });
-  </script>
+
+      let links = document.querySelectorAll('.view-members');
+
+      links.forEach((link) => {
+        link.addEventListener('click', () => {
+          // Get the target selector from the data attribute
+          let targetSelector = link.getAttribute('data-target');
+          let members = document.querySelector(targetSelector);
+
+          // Toggle display of the targeted members list
+          if (members.style.display === 'block') {
+            members.style.display = 'none';
+            link.innerHTML = "Click To View Band Members"
+          } else {
+            members.style.display = 'block';
+            link.innerHTML = "Click To Hide"
+          }
+        });
+      });
+    </script>
 </html>
