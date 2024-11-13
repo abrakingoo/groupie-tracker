@@ -1,0 +1,29 @@
+{{define "Relation"}}
+<main>
+    <div class="display">
+        <img src="{{.Image}}" alt="poster">
+        <h3>{{.Name}}</h3>
+        <h4>upcoming concert locations and dates</h4>
+        <table>
+            <tr>
+                <th>
+                    <h4 style="color: black;">Location</h4>
+                </th>
+                <th><h4 style="color: black;">Date</h4></th>
+            </tr>
+            {{range $key, $value := .Relations.Dateslocations}}
+            <tr>
+                <td>
+                    {{$key}}
+                </td>
+                <td>
+                    {{range $value}}
+                        {{.}}
+                    {{end}}
+                </td>
+            </tr>
+            {{end}}
+        </table>
+    </div>
+</main>
+{{end}}

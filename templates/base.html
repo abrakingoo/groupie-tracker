@@ -1,0 +1,15 @@
+{{template "Header" .Title}}
+{{if eq "Home" .Title }}
+    {{template "Main" .Bands}}
+{{else if eq "Location" .Title}}
+    {{template "Location" .Bands}}
+{{else if eq "Dates" .Title}}
+    {{template "Dates" .Bands}}
+{{else if eq "Relations" .Title}}
+    {{template "Relation" .Bands}}
+{{else if eq "Error" .Title}}
+    {{template "Error" .Bands}}
+{{else if eq "Search" .Title}}
+    {{template "Search" .Bands}}
+{{end}}
+{{template "Footer" .}} 

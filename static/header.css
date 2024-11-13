@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 25rem;
+  background-image: url("https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.description h1,
+.logo a {
+  text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3),
+    /* Soft dark shadow below for depth */ 0px 0px 5px gold,
+    /* Glowing gold shadow for highlight */ 0px 0px 10px rgba(255, 215, 0, 0.5); /* Larger, soft glow for a polished look */
+}
+
+.description p {
+  font-size: medium;
+  font-weight: 800;
+}
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container .link {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.logo {
+  font-family: "Permanent Marker", cursive;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-left: 0;
+}
+
+.logo a {
+  color: #fff;
+}
+
+.cta-button {
+  background: #ffffff;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+  background-color: chocolate;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.container .description {
+  color: #fff;
+  margin: 8em auto;
+  text-align: center;
+}
+
+.options {
+  width: 170px;
+  height: 30px;
+  text-align: center;
+  margin-bottom: 5px;
+  border-radius: 7px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.search-container {
+  background-color: transparent;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+ 
+.search-container #search-term {
+  width: 400px;
+  height: 30px;
+  border: 25px;
+  padding: 5px 0px 5px 25px;
+  font-size: 1em;
+  font-style: monospace;
+  border-radius: 25px 0px 0px 25px;
+}
+
+.search-container #btn {
+  width: 70px;
+  height:30px ;
+  color: black;
+  cursor: pointer;
+}
+
+
+
+@media screen and (max-width: 680px) {
+  header {
+    width: 100%;
+    padding: 0;
+  }
+
+  header .cta-button {
+    display: none;
+  }
+
+  .container {
+    padding: 0;
+  }
+  .description {
+    padding: 0;
+    margin: 0;
+  }
+}

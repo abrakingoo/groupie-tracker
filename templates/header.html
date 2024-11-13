@@ -1,0 +1,111 @@
+{{define "Header"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/static/js/script.js" defer></script>
+    <link rel="stylesheet" href="/static/header.css" />
+    <link rel="stylesheet" href="/static/main.css" />
+    <link rel="stylesheet" href="/static/footer.css" />
+    <title>{{.}}</title>
+    <style>
+      .error-container {
+        text-align: center;
+        max-width: 600px;
+        padding: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: auto;
+      }
+
+      .error-title {
+        font-size: 6rem;
+        font-weight: bold;
+        margin: 0;
+        color: #dc3545;
+      }
+
+      .error-message {
+        font-size: 1.5rem;
+        margin: 20px 0;
+      }
+
+      .error-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      .error-link:hover {
+        background-color: #0056b3;
+      }
+    </style>
+    <style>
+      #suggestions {
+        border: 1px solid #ddd;
+        position: absolute;
+        background: white;
+        z-index: 1000;
+        top: 68px;
+        left: 15px;
+        height: 300px;
+        width: 80%;
+        overflow: auto;
+        display: none;
+        border-radius: 0px 0px 5px 5px;
+      }
+      #suggestions div {
+        padding: 8px;
+        cursor: pointer;
+      }
+      #suggestions div:hover {
+        background: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="link">
+          <div class="logo"><a href="/">Groupie Tracker</a></div>
+          <div class="search-container">
+            <form action="/search" method="POST">
+              <input
+                type="text"
+                name="search"
+                id="search-term"
+                placeholder="Enter search term here.."
+                autocomplete="off"
+              />
+              <input
+                type="submit"
+                value="search"
+                id="btn"
+                style="color: black"
+              />
+            </form>
+            <div id="suggestions" style="z-index: 999">
+            </div>
+          </div>
+          <a href="/" class="cta-button">Home</a>
+        </div>
+        <div class="description">
+          <h1>Experience Music in the Great Outdoors</h1>
+          <p>
+            Groupie Tracker brings you the ultimate guide to outdoor music
+            events. From sun-soaked festivals to intimate park performances,
+            we've got your outdoor music adventure covered.
+          </p>
+        </div>
+      </div>
+    </header>
+    {{end}}
+  </body>
+</html>

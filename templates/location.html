@@ -1,4 +1,4 @@
-{{define "Dates"}}
+{{define "Location"}}
 <main>
     <div class="display">
         <img src="{{.Image}}" alt="poster">
@@ -6,15 +6,15 @@
         <table>
             <tr>
                 <th>
-                    <h3 style="color: black;">Concert Dates</h3>
+                    <h3 style="color: black;">Locations</h3>
                 </th>
             </tr>
-            {{range .Dates.Dates}}
+            {{range .Locations.Locations}}
                 <tr>
                     <td>{{.}}</td>
                 </tr>
             {{end}}
-        </table>
+        </table>       
     </div>
 </main>
 {{end}}

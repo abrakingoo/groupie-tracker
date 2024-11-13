@@ -1,0 +1,52 @@
+{{define "Main"}}
+<main>
+    {{range .}}
+    <div class="card">
+        <div class="left">
+            <div class="img">
+                <img src="{{.Image}}" alt="">
+            </div>
+            <div class="name">
+                <h5>{{.Name}}</h5>
+            </div>
+        </div>
+        <div class="right">
+            <h5>Members</h5>
+            <ol>
+                {{range .Members}}
+                <li>{{.}}</li>
+                {{end}}
+            </ol>
+            <h5>creation Date: <span style="color: white;">{{.CreationDate}}</span></h5>
+            <h5>First Album: <span style="color: white;">{{.FirstAlbum}}</span></h5>
+            <div class="forms">
+                <form action="/display" method="post">
+                    <input type="hidden" name="url" value="{{.Locations}}">
+                    <input type="hidden" name="image" value="{{.Image}}">
+                    <input type="hidden" name="bandName" value="{{.Name}}">
+                    <input type="hidden" name="form_type" value="Location">
+                    <input type="submit" value="Locations">
+                </form>
+    
+                <form action="/display" method="post">
+                    <input type="hidden" name="url" value="{{.ConcertDates}}">
+                    <input type="hidden" name="image" value="{{.Image}}">
+                    <input type="hidden" name="bandName" value="{{.Name}}">
+                    <input type="hidden" name="form_type" value="Dates">
+                    <input type="submit" value="Concert Dates">
+                </form>
+                
+                <form action="/display" method="post">
+                    <input type="hidden" name="url" value="{{.Relations}}">
+                    <input type="hidden" name="image" value="{{.Image}}">
+                    <input type="hidden" name="bandName" value="{{.Name}}">
+                    <input type="hidden" name="form_type" value="Relations">
+                    <input type="submit" value="Relations">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{end}}
+</main>
+{{end}}
